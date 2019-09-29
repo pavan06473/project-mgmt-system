@@ -1,5 +1,7 @@
 package com.cognizant.fsd.sbaproject.facade;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +45,9 @@ public class UserFacade implements BaseFacade {
 
 	public User findUser(User user) {
 		return userService.find(user);
+	}
+
+	public List<User> findAll() {
+		return userService.findAll();
 	}
 }

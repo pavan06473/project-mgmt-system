@@ -1,5 +1,7 @@
 package com.cognizant.fsd.sbaproject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +33,9 @@ public class UserService {
 
 	public User find(User user) {
 		return userDao.find(user);
+	}
+
+	public List<User> findAll() {
+		return userDao.findAll();
 	}
 }

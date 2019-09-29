@@ -1,5 +1,7 @@
 package com.cognizant.fsd.sbaproject.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,16 +24,33 @@ import com.cognizant.fsd.sbaproject.model.JSONResponseModel;
 import com.cognizant.fsd.sbaproject.model.User;
 
 @RestController
-public class UserController extends AbstractController  {
+public class UserController extends AbstractController {
 
 	Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserFacade userFacade;
 
+	@GetMapping("/users")
+	public ResponseEntity<JSONResponseModel> getUsers(HttpServletRequest request, HttpServletResponse response) {
+
+		JSONResponseModel jsonResponseModel = new JSONResponseModel();
+		try {
+
+			List<User> users = userFacade.findAll();
+
+			jsonResponseModel = setJSONResponseVO(users, response);
+		} catch (Exception e) {
+			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE,
+					ServiceConstants.EXCEPTIONMSG);
+			// TODO: handle exception
+		}
+		return new ResponseEntity<>(jsonResponseModel, HttpStatus.OK);
+	}
 
 	@GetMapping("/users/{userId}")
-	public ResponseEntity<JSONResponseModel> getUser(@PathVariable String userId, HttpServletRequest request,  HttpServletResponse response) {
+	public ResponseEntity<JSONResponseModel> getUser(@PathVariable String userId, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		JSONResponseModel jsonResponseModel = new JSONResponseModel();
 		try {
@@ -39,16 +58,17 @@ public class UserController extends AbstractController  {
 			User user = userFacade.findUser(new User(userId));
 
 			jsonResponseModel = setJSONResponseVO(user, response);
-		}catch (Exception e) {
-			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE, ServiceConstants.EXCEPTIONMSG);
+		} catch (Exception e) {
+			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE,
+					ServiceConstants.EXCEPTIONMSG);
 			// TODO: handle exception
 		}
 		return new ResponseEntity<>(jsonResponseModel, HttpStatus.OK);
 	}
 
-
-	@PostMapping("/users")
-	public ResponseEntity<JSONResponseModel> updateUser(@RequestBody User user, HttpServletRequest request,  HttpServletResponse response) {
+	@PutMapping("/users/{userId}")
+	public ResponseEntity<JSONResponseModel> updateUser(@PathVariable String userId,@RequestBody User user, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		JSONResponseModel jsonResponseModel = new JSONResponseModel();
 		try {
@@ -56,15 +76,17 @@ public class UserController extends AbstractController  {
 			userFacade.updateUser(user);
 
 			jsonResponseModel = setJSONResponseVO(true, response);
-		}catch (Exception e) {
-			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE, ServiceConstants.EXCEPTIONMSG);
+		} catch (Exception e) {
+			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE,
+					ServiceConstants.EXCEPTIONMSG);
 			// TODO: handle exception
 		}
 		return new ResponseEntity<>(jsonResponseModel, HttpStatus.OK);
 	}
 
-	@PutMapping("/users")
-	public ResponseEntity<JSONResponseModel> createUser(@RequestBody User user, HttpServletRequest request,  HttpServletResponse response) {
+	@PostMapping("/users")
+	public ResponseEntity<JSONResponseModel> createUser(@RequestBody User user, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		JSONResponseModel jsonResponseModel = new JSONResponseModel();
 		try {
@@ -72,15 +94,17 @@ public class UserController extends AbstractController  {
 			userFacade.createUser(user);
 
 			jsonResponseModel = setJSONResponseVO(true, response);
-		}catch (Exception e) {
-			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE, ServiceConstants.EXCEPTIONMSG);
+		} catch (Exception e) {
+			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE,
+					ServiceConstants.EXCEPTIONMSG);
 			// TODO: handle exception
 		}
 		return new ResponseEntity<>(jsonResponseModel, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/users/{userId}")
-	public ResponseEntity<JSONResponseModel> deleteUser(@PathVariable String userId, HttpServletRequest request,  HttpServletResponse response) {
+	public ResponseEntity<JSONResponseModel> deleteUser(@PathVariable String userId, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		JSONResponseModel jsonResponseModel = new JSONResponseModel();
 		try {
@@ -88,12 +112,12 @@ public class UserController extends AbstractController  {
 			userFacade.deleteUser(new User(userId));
 
 			jsonResponseModel = setJSONResponseVO(true, response);
-		}catch (Exception e) {
-			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE, ServiceConstants.EXCEPTIONMSG);
+		} catch (Exception e) {
+			jsonResponseModel = setJSONResponseVOFailed(response, ServiceConstants.FAILURE,
+					ServiceConstants.EXCEPTIONMSG);
 			// TODO: handle exception
 		}
 		return new ResponseEntity<>(jsonResponseModel, HttpStatus.OK);
 	}
-
 
 }

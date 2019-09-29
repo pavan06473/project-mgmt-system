@@ -1,5 +1,7 @@
 package com.cognizant.fsd.sbaproject.mongodb.dao_impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -38,5 +40,9 @@ public class UserDaoImpl implements UserDao {
 	public User find(User user) {
 		Query query = new Query(Criteria.where("_id").is(user.getUserId()));
 		return mongoTemplate.findOne(query, User.class);
+	}
+
+	public List<User> findAll() {
+		return mongoTemplate.findAll(User.class);
 	}
 }

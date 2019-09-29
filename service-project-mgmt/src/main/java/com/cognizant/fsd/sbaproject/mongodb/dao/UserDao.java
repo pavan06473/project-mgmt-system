@@ -1,6 +1,8 @@
 package com.cognizant.fsd.sbaproject.mongodb.dao;
 
 
+import java.util.List;
+
 import com.cognizant.fsd.sbaproject.model.User;
 
 public interface UserDao {
@@ -14,5 +16,7 @@ public interface UserDao {
 	public void deleteAll();
 
 	public User find(User user);
+
+	public List<User> findAll();
 
 }

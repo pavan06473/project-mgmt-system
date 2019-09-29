@@ -9,8 +9,8 @@
               type="text"
               class="form-control"
               id="task"
-              [ngModel] = "taskToEdit?.taskName"
-              name="task_name"
+              [ngModel] = "taskToEdit?.task"
+              name="task"
               placeholder=""
               required
             />
@@ -53,7 +53,7 @@
               class="form-control"
               id="parent_task"
               [ngModel] = "taskToEdit?.parentId"
-              name="parent_task_name"
+              name="parent_task"
               placeholder=""
               required
             />
@@ -69,7 +69,7 @@
               type="date"
               class="form-control"
               id="start_date"
-              [ngModel] = "taskToEdit?.startDate"
+              [ngModel] = "taskToEdit?.startDate | date:'yyyy-MM-dd'"
               name="start_date"
               placeholder=""
               required
@@ -86,7 +86,7 @@
               type="date"
               class="form-control"
               id="end_date"
-              [ngModel] = "taskToEdit?.endDate"
+              [ngModel] = "taskToEdit?.endDate | date:'yyyy-MM-dd'"
               name="end_date"
               placeholder=""
               required

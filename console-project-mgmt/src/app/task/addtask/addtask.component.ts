@@ -25,8 +25,7 @@ export class AddtaskComponent implements OnInit {
       if (paramMap.has('taskId')) {
         this.mode = 'edit';
         this.taskId = paramMap.get('taskId');
-        console.log("Task Id: "+this.taskId);
-        this.taskService.getTask(parseInt(this.taskId)).subscribe(response => {
+        this.taskService.getTask(this.taskId).subscribe(response => {
           this.taskToEdit = response.data;
         });
 
@@ -42,20 +41,20 @@ export class AddtaskComponent implements OnInit {
 
     if (this.mode === 'add') {
       const taskpriority =
-      (this.addNewTaskForm.value.task_priority === null) ? 15 : this.addNewTaskForm.value.task_priority;
-      this.newTask = new Task (null,
-        this.addNewTaskForm.value.parent_task_name,
-        this.addNewTaskForm.value.task_name,
+        (this.addNewTaskForm.value.task_priority === null) ? 15 : this.addNewTaskForm.value.task_priority;
+      this.newTask = new Task(null,
+        this.addNewTaskForm.value.parent_task,
+        this.addNewTaskForm.value.task,
         this.addNewTaskForm.value.start_date,
         this.addNewTaskForm.value.end_date,
-        taskpriority, null, null, null);
+        taskpriority, null, null, 'Init');
 
       this.taskService.addTask(this.newTask);
 
     } else {
-      this.taskToEdit.task = this.addNewTaskForm.value.task_name;
-      this.taskToEdit.parentId =  this.addNewTaskForm.value.parent_task_name;
-      this.taskToEdit.startDate  = this.addNewTaskForm.value.start_date;
+      this.taskToEdit.task = this.addNewTaskForm.value.task;
+      this.taskToEdit.parentId = this.addNewTaskForm.value.parent_task;
+      this.taskToEdit.startDate = this.addNewTaskForm.value.start_date;
       this.taskToEdit.endDate = this.addNewTaskForm.value.end_date;
       this.taskToEdit.priority = this.addNewTaskForm.value.task_priority;
 

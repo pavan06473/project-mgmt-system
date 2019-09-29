@@ -29,21 +29,21 @@ export class TaskListComponent implements OnInit {
   ngOnInit() {
     this.taskService.getTasks();
     this.tasksSub = this.taskService.getTaskUpdateListener()
-    .subscribe((tasks: Task[]) => {
-      this.tasks = tasks;
+      .subscribe((tasks: Task[]) => {
+        this.tasks = tasks;
+      });
+  }
+
+  onEndTask(id: string) {
+    this.taskService.getTask(id).subscribe(response => {
+      this.taskToEnd = response.data;
+      this.taskToEnd.status = 'Task Ended';
+      this.taskService.updateTask(this.taskToEnd);
     });
   }
 
-  onEndTask(id: number) {
-  this.taskService.getTask(id).subscribe(response => {
-    this.taskToEnd = response.data;
-    // this.taskToEnd.endDate = 'Task Ended';
-    this.taskService.updateTask(this.taskToEnd);
-  });
-  }
-
-  onDeleteTask(taskId: number) {
-  this.taskService.deleteTask(taskId);
+  onDeleteTask(taskId: string) {
+    this.taskService.deleteTask(taskId);
   }
 
   alertReadOnly() {

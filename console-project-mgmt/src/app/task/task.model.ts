@@ -1,17 +1,18 @@
 export class Task {
+  public taskId: string;
   public parentId: string;
   public task: string;
-  public startDate: string;
-  public endDate: string;
+  public startDate: Date;
+  public endDate: Date;
   public priority: number;
-  public taskId: number;
 
   public projectId: string;
   public status: string;
   
 
-  constructor(id: number, parentId: string, task: string, startDate: string, endDate: string, priority: number, taskId: number, projectId: string, status: string) {
+  constructor(id: number, parentId: string, task: string, startDate: Date, endDate: Date, priority: number, taskId: string, projectId: string, status: string) {
     this.task = task;
+    this.parentId = parentId;
     this.startDate = startDate;
     this.endDate = endDate;
     this.priority = priority;

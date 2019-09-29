@@ -1,5 +1,7 @@
 package com.cognizant.fsd.sbaproject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +33,9 @@ public class ProjectService {
 
 	public Project find(Project project) {
 		return projectDao.find(project);
+	}
+
+	public List<Project> finAll() {
+		return projectDao.findAll();
 	}
 }

@@ -1,5 +1,7 @@
 package com.cognizant.fsd.sbaproject.mongodb.dao_impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -38,5 +40,9 @@ public class ProjectDaoImpl implements ProjectDao {
 	public Project find(Project project) {
 		Query query = new Query(Criteria.where("_id").is(project.getProjectId()));
 		return mongoTemplate.findOne(query, Project.class);
+	}
+
+	public List<Project> findAll() {
+		return mongoTemplate.findAll(Project.class);
 	}
 }

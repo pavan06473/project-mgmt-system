@@ -12,7 +12,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       request = request.clone({headers: request.headers.set('Accept', 'application/json')});
     }
  
-    request = request.clone({headers: request.headers.set('Accept-Language', 'fr-FR')});
+    request = request.clone({headers: request.headers.set('Accept-Language', 'en-EN')});
  
     return next.handle(request);
  
